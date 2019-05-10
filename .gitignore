@@ -1,0 +1,18 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+
+# C extensions
+*.so
+
+# Temporary files
+*.swp
+
+# Project files
+cache/
+logs/
+output/
+test_report/
+test_images/
+test_result/
+
