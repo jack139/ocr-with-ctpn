@@ -4,4 +4,4 @@
 
 [1] https://github.com/eragonruan/text-detection-ctpn
 
-[2] https://github.com/chineseocr/chinese-ocr
+[2] https://github.com/YCG09/chinese_ocr
