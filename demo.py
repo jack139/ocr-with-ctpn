@@ -29,7 +29,7 @@ if __name__ == '__main__':
         # OCR 文字识别
         result = ocr.model(img, boxes)
         for key in result:
-            print(result[key][1])
+            print(result[key][1].encode('utf-8'))
 
 
     #boxes = np.array([np.array([  79,   59, 1264,   50,   80,  148, 1264,  139])])
