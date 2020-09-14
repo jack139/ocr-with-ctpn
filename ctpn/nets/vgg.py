@@ -1,6 +1,5 @@
-import tensorflow as tf
-
-slim = tf.contrib.slim
+import tensorflow.compat.v1 as tf
+import tf_slim as slim
 
 
 def vgg_arg_scope(weight_decay=0.0005):

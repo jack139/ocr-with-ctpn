@@ -6,13 +6,15 @@ import time
 
 import cv2
 import numpy as np
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
+
+tf.reset_default_graph()
+tf.disable_eager_execution()
 
 from ctpn.nets import model_train as model
 from ctpn.utils.rpn_msr.proposal_layer import proposal_layer
 from ctpn.utils.text_connector.detectors import TextDetector
 
-#tf.app.flags.DEFINE_string('test_data_path', 'test_images/', '')
 tf.app.flags.DEFINE_string('output_path', 'test_result/', '')
 tf.app.flags.DEFINE_string('gpu', '0', '')
 tf.app.flags.DEFINE_string('checkpoint_path', 'ctpn/checkpoints_mlt/', '')

@@ -5,8 +5,6 @@ import numpy as np
 from ctpn import detect
 import ocr
 
-#sys.path.append(os.getcwd()+'/ctpn')
-
 def get_images():
     files = []
     exts = ['jpg', 'png', 'jpeg', 'JPG']
@@ -29,19 +27,5 @@ if __name__ == '__main__':
         # OCR 文字识别
         result = ocr.model(img, boxes)
         for key in result:
-            print(result[key][1].encode('utf-8'))
+            print(result[key][1])
 
-
-    #boxes = np.array([np.array([  79,   59, 1264,   50,   80,  148, 1264,  139])])
-    #boxes = np.array([np.array([  79,   52, 1024,   46, 1024,  115,   80,  122,    0])])
-
-    #boxes = np.array([np.array([  79,   52, 1024,   46,   80,  122, 1024,  115])])
-    #
-    #print boxes
-    #boxes = sort_box(boxes)
-    #
-    #print boxes
-    #image = np.array(Image.open('test_result/test.jpg').convert('RGB'))
-    #print image
-    #result = charRec(image, boxes)
-    #print result

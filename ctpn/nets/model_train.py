@@ -1,5 +1,5 @@
-import tensorflow as tf
-from tensorflow.contrib import slim
+import tensorflow.compat.v1 as tf
+import tf_slim as slim
 
 from ctpn.nets import vgg
 from ctpn.utils.rpn_msr.anchor_target_layer import anchor_target_layer as anchor_target_layer_py
@@ -27,15 +27,16 @@ def Bilstm(net, input_channel, hidden_unit_num, output_channel, scope_name):
         net = tf.reshape(net, [N * H, W, C])
         net.set_shape([None, None, input_channel])
 
-        lstm_fw_cell = tf.contrib.rnn.LSTMCell(hidden_unit_num, state_is_tuple=True)
-        lstm_bw_cell = tf.contrib.rnn.LSTMCell(hidden_unit_num, state_is_tuple=True)
+        lstm_fw_cell = tf.nn.rnn_cell.LSTMCell(hidden_unit_num, state_is_tuple=True)
+        lstm_bw_cell = tf.nn.rnn_cell.LSTMCell(hidden_unit_num, state_is_tuple=True)
 
         lstm_out, last_state = tf.nn.bidirectional_dynamic_rnn(lstm_fw_cell, lstm_bw_cell, net, dtype=tf.float32)
         lstm_out = tf.concat(lstm_out, axis=-1)
 
         lstm_out = tf.reshape(lstm_out, [N * H * W, 2 * hidden_unit_num])
 
-        init_weights = tf.contrib.layers.variance_scaling_initializer(factor=0.01, mode='FAN_AVG', uniform=False)
+        #init_weights = tf.contrib.layers.variance_scaling_initializer(factor=0.01, mode='FAN_AVG', uniform=False)
+        init_weights = tf.glorot_uniform_initializer()
         init_biases = tf.constant_initializer(0.0)
         weights = make_var('weights', [2 * hidden_unit_num, output_channel], init_weights)
         biases = make_var('biases', [output_channel], init_biases)
@@ -52,7 +53,8 @@ def lstm_fc(net, input_channel, output_channel, scope_name):
         N, H, W, C = shape[0], shape[1], shape[2], shape[3]
         net = tf.reshape(net, [N * H * W, C])
 
-        init_weights = tf.contrib.layers.variance_scaling_initializer(factor=0.01, mode='FAN_AVG', uniform=False)
+        #init_weights = tf.contrib.layers.variance_scaling_initializer(factor=0.01, mode='FAN_AVG', uniform=False)
+        init_weights = tf.glorot_uniform_initializer()
         init_biases = tf.constant_initializer(0.0)
         weights = make_var('weights', [input_channel, output_channel], init_weights)
         biases = make_var('biases', [output_channel], init_biases)

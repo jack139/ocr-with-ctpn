@@ -8,7 +8,6 @@ from math import *
 import numpy as np
 from PIL import Image
 
-#sys.path.append(os.getcwd() + '/ctpn')
 from densenet.model import predict as keras_densenet
 
 
